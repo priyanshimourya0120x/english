@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 2 – First Flight MCQ Tests | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background: linear-gradient(rgba(22,46,6,0.85), rgba(22,46,6,0.85)), 
+  url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#2a5298;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px; padding:8px 14px; border:none;
+  border-radius:6px; cursor:pointer; background:#ddd;
+}
+.test-buttons button.active{background:#2a5298;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #2a5298;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%; padding:12px;
+  background:#2a5298; color:#fff;
+  border:none;border-radius:8px;
+  font-size:16px; cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 1 – A Letter to God (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+/* ===== TEST DATA ===== */
+const tests = [
+
+/* ================= TEST 1 ================= */
+[
+  {q:"Who wrote the story 'A Letter to God'?", opts:["G. L. Fuentes","Ruskin Bond","R. K. Narayan","O. Henry"], ans:0},
+  {q:"Who was Lencho?", opts:["A postmaster","A farmer","A shopkeeper","A teacher"], ans:1},
+  {q:"Where was Lencho’s house located?", opts:["In a village","On a river bank","On the crest of a hill","In a city"], ans:2},
+  {q:"What destroyed Lencho’s crop?", opts:["Flood","Drought","Hailstorm","Cyclone"], ans:2},
+  {q:"What did Lencho compare the raindrops to?", opts:["Pearls","Diamonds","New coins","Silver"], ans:2},
+  {q:"Why did Lencho write a letter to God?", opts:["To thank Him","To complain","To ask for money","To pray"], ans:2},
+  {q:"How much money did Lencho ask from God?", opts:["50 pesos","70 pesos","100 pesos","150 pesos"], ans:2},
+  {q:"Who helped Lencho by collecting money?", opts:["Villagers","Postmaster and staff","Government","Priest"], ans:1},
+  {q:"How much money did Lencho receive?", opts:["100 pesos","80 pesos","70 pesos","50 pesos"], ans:2},
+  {q:"Why was Lencho angry after receiving the money?", opts:["It was less","It was stolen","It was late","It was torn"], ans:0}
+],  // <-- COMMA HERE
+
+/* ================= TEST 2 ================= */
+[
+  {q:"What kind of farmer was Lencho?", opts:["Rich","Poor","Middle-class","Landlord"], ans:1},
+  {q:"What natural event destroyed Lencho’s crops?", opts:["Earthquake","Hailstorm","Drought","Flood"], ans:1},
+  {q:"Lencho believed only ___ could help him.", opts:["The government","The postmaster","God","Neighbors"], ans:2},
+  {q:"Lencho’s family depended on the ___ for survival.", opts:["River","Farm","Business","Shop"], ans:1},
+  {q:"How did Lencho express his hope to God?", opts:["By praying silently","By writing a letter","By shouting","By planting more seeds"], ans:1},
+  {q:"Who decided to help Lencho secretly?", opts:["His neighbors","The postmaster and staff","The mayor","His teacher"], ans:1},
+  {q:"How did Lencho feel when he saw some money arrive?", opts:["Sad","Happy","Suspicious","Angry"], ans:2},
+  {q:"Lencho thought the missing money was taken by ___?", opts:["Thieves","God","Villagers","Postmaster"], ans:0},
+  {q:"The story teaches about ___.", opts:["Faith in God","Courage","Adventure","Revenge"], ans:0},
+  {q:"What shows Lencho’s strong belief in God?", opts:["He writes a letter","He goes to market","He calls the post office","He plants more seeds"], ans:0}
+],  // <-- COMMA HERE
+
+/* ================= TEST 3 ================= */
+[
+  {q:"What did Lencho hope for when it first started raining?", opts:["Good harvest","Flood","Hailstorm","No rain"], ans:0},
+  {q:"What was Lencho’s reaction when the hail came?", opts:["He laughed","He cried","He danced","He ignored it"], ans:1},
+  {q:"How did Lencho address God in his letter?", opts:["As a friend","As a teacher","As Father","As King"], ans:2},
+  {q:"Why did Lencho want exactly 100 pesos?", opts:["To build a house","To buy seeds","To survive until next harvest","To help neighbors"], ans:2},
+  {q:"Who counted the money to send to Lencho?", opts:["The postmaster","Villagers","Lencho’s family","Teacher"], ans:0},
+  {q:"How did Lencho feel about the post office staff?", opts:["Distrustful","Friendly","Indifferent","Annoyed"], ans:0},
+  {q:"Which quality of Lencho is highlighted in the story?", opts:["Faith","Greed","Laziness","Anger"], ans:0},
+  {q:"Lencho believed that only God could ___ his problems.", opts:["Solve","Ignore","Delay","Hide"], ans:0},
+  {q:"The postmaster sent money to Lencho to keep his ___ intact.", opts:["Faith","Health","Farm","Education"], ans:0},
+  {q:"The story shows the importance of ___ in difficult times.", opts:["Faith","Wealth","Revenge","Fame"], ans:0}
+]
+
+];
+
+let currentTest = 0;
+
+/* ===== LOAD TEST ===== */
+function loadTest(index){
+  currentTest = index;
+  result.textContent = "";
+  mcqForm.innerHTML = "";
+  qCircles.innerHTML = "";
+
+  document.querySelectorAll(".test-buttons button").forEach((b,i)=>{
+    b.classList.toggle("active", i === index);
+  });
+
+  tests[index].forEach((item,i)=>{
+    qCircles.innerHTML += `<div class="q-circle" id="c${i}">${i+1}</div>`;
+    mcqForm.innerHTML += `
+      <div class="question" data-answer="${item.ans}">
+        <p>Q${i+1}. ${item.q}</p>
+        ${item.opts.map((o,j)=>`
+          <label>
+            <input type="radio" name="q${i}" value="${j}" onchange="markFilled(${i})">
+            ${o}
+          </label>`).join("")}
+        <div class="feedback"></div>
+      </div>`;
+  });
+}
+
+/* ===== MARK ATTEMPT ===== */
+function markFilled(i){
+  document.getElementById("c"+i).classList.add("filled");
+}
+
+/* ===== SUBMIT ===== */
+function submitTest(){
+  let score = 0;
+  document.querySelectorAll(".question").forEach(q=>{
+    const sel = q.querySelector("input:checked");
+    const fb = q.querySelector(".feedback");
+    const ans = q.dataset.answer;
+    const correct = q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+    if(sel && sel.value === ans){
+      score++;
+      fb.innerHTML = "✔ Correct";
+      fb.className = "feedback correct";
+    } else if(sel){
+      fb.innerHTML = `✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`;
+      fb.className = "feedback wrong";
+    } else {
+      fb.innerHTML = `⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`;
+      fb.className = "feedback wrong";
+    }
+  });
+
+  result.textContent = `Score: ${score} / ${tests[currentTest].length}`;
+}
+
+/* INITIAL LOAD */
+loadTest(0);
+</script>
+
+</body>
+</html>

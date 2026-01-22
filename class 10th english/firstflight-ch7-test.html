@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 7 – Glimpses of India | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:linear-gradient(rgba(30,60,90,0.85),rgba(30,60,90,0.85)),
+  url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#0d47a1;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px;padding:8px 14px;border:none;
+  border-radius:6px;cursor:pointer;background:#ddd;
+}
+.test-buttons button.active{background:#0d47a1;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #0d47a1;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%;padding:12px;background:#0d47a1;
+  color:#fff;border:none;border-radius:8px;
+  font-size:16px;cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 7 – Glimpses of India (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+const tests=[
+
+/* ================= TEST 01  ================= */
+[
+  {q:"Who wrote 'His First Flight'?",opts:["Liam O’Flaherty","Frederick Forsyth","Ruskin Bond","R.K. Narayan"],ans:0},
+  {q:"Who is the main character in 'His First Flight'?",opts:["Young seagull","Pilot","Mother seagull","Father seagull"],ans:0},
+  {q:"Why was the young seagull afraid to fly?",opts:["Weak wings","Fear of falling","Laziness","Injury"],ans:1},
+  {q:"What tempted the young seagull to fly?",opts:["Wind","Hunger","Anger","Fear"],ans:1},
+  {q:"Who encouraged the young seagull indirectly?",opts:["Father","Mother","Sister","Brother"],ans:1},
+  {q:"What did the mother seagull hold in her beak?",opts:["Fish","Bread","Insect","Stone"],ans:0},
+  {q:"What happened when the seagull jumped?",opts:["He fell","He flew","He drowned","He fainted"],ans:1},
+  {q:"What emotion did the seagull feel after flying?",opts:["Fear","Joy","Sadness","Anger"],ans:1},
+  {q:"What lesson does 'His First Flight' teach?",opts:["Confidence","Fear","Failure","Pride"],ans:0},
+  {q:"What supported the seagull in the air?",opts:["Wind","Wings","Mother","Water"],ans:1},  
+  
+  ],
+
+  [
+  {q:"Who wrote 'The Black Aeroplane'?",opts:["Frederick Forsyth","Liam O’Flaherty","Ruskin Bond","Arup Kumar Dutta"],ans:0},
+  {q:"Where was the pilot flying to?",opts:["Paris","London","England","New York"],ans:2},
+  {q:"What time did the pilot take off?",opts:["Morning","Afternoon","Night","Noon"],ans:2},
+  {q:"Why did the pilot continue flying?",opts:["Fuel","Confidence","Desire to reach home","Weather"],ans:2},
+  {q:"What problem did the pilot face?",opts:["Low fuel","Storm","Engine failure","Bird hit"],ans:1},
+  {q:"What appeared suddenly in the storm?",opts:["Bird","Plane","Ship","Cloud"],ans:1},
+  {q:"What colour was the mysterious aeroplane?",opts:["White","Red","Black","Grey"],ans:2},
+  {q:"Who guided the pilot to safety?",opts:["Radar","Control room","Unknown pilot","Friend"],ans:2},
+  {q:"Where did the pilot land safely?",opts:["Paris airport","England airport","Runway","Island"],ans:0},
+  {q:"What surprised the pilot after landing?",opts:["Fuel left","Storm gone","No record of other plane","Damage"],ans:2},
+],
+
+[
+  {q:"What is the main theme of 'The Black Aeroplane'?",opts:["Mystery and hope","Fear","War","Technology"],ans:0},
+  {q:"What quality does the pilot show?",opts:["Fear","Bravery","Greed","Anger"],ans:1},
+  {q:"What helped the pilot survive?",opts:["Luck","Faith","Skill","Weather"],ans:1},
+  {q:"Both stories highlight the importance of?",opts:["Fear","Courage","Failure","Luck"],ans:1},
+  {q:"What do both stories teach?",opts:["Confidence","Technology","Speed","Power"],ans:0},
+  {q:"The young seagull’s fear was overcome by?",opts:["Force","Hunger","Anger","Practice"],ans:1},
+  {q:"Why is the black aeroplane mysterious?",opts:["Invisible pilot","No fuel","No control","No record"],ans:3},
+  {q:"What does flying symbolize in both stories?",opts:["Freedom","Fear","Death","Speed"],ans:0},
+  {q:"Which emotion connects both stories?",opts:["Hope","Jealousy","Hatred","Sadness"],ans:0},
+  {q:"Central message of the chapter?",opts:["Self-belief and courage","War","Technology","Adventure"],ans:0}
+]
+
+];
+
+
+let currentTest=0;
+
+function loadTest(i){
+ currentTest=i;
+ result.textContent="";
+ mcqForm.innerHTML="";
+ qCircles.innerHTML="";
+
+ document.querySelectorAll(".test-buttons button").forEach((b,j)=>{
+  b.classList.toggle("active",i===j);
+ });
+
+ tests[i].forEach((item,index)=>{
+  qCircles.innerHTML+=`<div class="q-circle" id="c${index}">${index+1}</div>`;
+  mcqForm.innerHTML+=`
+   <div class="question" data-answer="${item.ans}">
+    <p>Q${index+1}. ${item.q}</p>
+    ${item.opts.map((o,j)=>`
+     <label>
+      <input type="radio" name="q${index}" value="${j}" onchange="markFilled(${index})">
+      ${o}
+     </label>`).join("")}
+    <div class="feedback"></div>
+   </div>`;
+ });
+}
+
+function markFilled(i){
+ document.getElementById("c"+i).classList.add("filled");
+}
+
+function submitTest(){
+ let score=0;
+ document.querySelectorAll(".question").forEach(q=>{
+  const sel=q.querySelector("input:checked");
+  const fb=q.querySelector(".feedback");
+  const ans=q.dataset.answer;
+  const correct=q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+  if(sel && sel.value===ans){
+   score++; fb.innerHTML="✔ Correct"; fb.className="feedback correct";
+  }else if(sel){
+   fb.innerHTML=`✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }else{
+   fb.innerHTML=`⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }
+ });
+ result.textContent=`Score: ${score} / ${tests[currentTest].length}`;
+}
+
+loadTest(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 5 – The Hundred Dresses–I | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:linear-gradient(rgba(60,20,80,0.85),rgba(60,20,80,0.85)),
+  url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#6a1b9a;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px;padding:8px 14px;border:none;
+  border-radius:6px;cursor:pointer;background:#ddd;
+}
+.test-buttons button.active{background:#6a1b9a;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #6a1b9a;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%;padding:12px;background:#6a1b9a;
+  color:#fff;border:none;border-radius:8px;
+  font-size:16px;cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 5 – The Hundred Dresses–I (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+const tests = [
+
+/* ================= TEST 1 – Characters & Setting ================= */
+[
+  {q:"Who wrote 'The Hundred Dresses–I'?", opts:["Eleanor Estes","Anne Frank","Helen Keller","Ruskin Bond"], ans:0},
+  {q:"Who is the main character teased in the story?", opts:["Peggy","Maddie","Wanda Petronski","Anne"], ans:2},
+  {q:"Where did Wanda sit in class?", opts:["Front row","Middle","Last row","Near teacher"], ans:2},
+  {q:"How many dresses did Wanda claim to own?", opts:["10","50","100","20"], ans:2},
+  {q:"What kind of shoes did Wanda wear?", opts:["New","Polished","Old muddy","Shiny"], ans:2},
+  {q:"Who made fun of Wanda in school?", opts:["Peggy","Maddie","Peggy & others","Teacher"], ans:2},
+  {q:"Wanda lived at?", opts:["Town","City","Boggins Heights","Riverside"], ans:2},
+  {q:"What was Maddie’s nature?", opts:["Cruel","Silent","Kind","Strict"], ans:2},
+  {q:"Why was Wanda teased?", opts:["Poor","Different name","Looks","All"], ans:3},
+  {q:"Theme of the chapter?", opts:["Bullying","War","Friendship","Education"], ans:0}
+],
+
+
+/* ================= TEST 2 – Thoughts & Feelings ================= */
+[
+  {q:"Peggy was known for?", opts:["Kindness","Teasing","Drawing","Singing"], ans:1},
+  {q:"How did Maddie feel after seeing Wanda teased?", opts:["Happy","Guilty","Angry","Proud"], ans:1},
+  {q:"Why did Wanda never complain?", opts:["Fear","Shyness","Hope","Pride"], ans:1},
+  {q:"In which classroom did they study?", opts:["School","Room 13","Room 10","Hall"], ans:1},
+  {q:"Wanda’s surname indicates?", opts:["Rich","Polish origin","American","English"], ans:1},
+  {q:"What did Peggy think teasing Wanda was?", opts:["Wrong","Fun","Harmless","Bad"], ans:2},
+  {q:"Maddie feared being?", opts:["Poor","Teacher","Wanda","Next target"], ans:3},
+  {q:"Who protected Wanda from teasing?", opts:["Teacher","Maddie","No one","Peggy"], ans:2},
+  {q:"Why did Wanda have no friends?", opts:["Silent","Poor","Different","All"], ans:3},
+  {q:"What does the chapter teach?", opts:["Kindness","Empathy","Equality","All"], ans:3}
+],
+
+
+/* ================= TEST 3 – Important Events & Morals ================= */
+[
+  {q:"How did the children react when Wanda claimed she had 100 dresses?", opts:["Laughed","Ignored","Believed her","Helped her"], ans:0},
+  {q:"What subject were the students learning when Wanda was teased?", opts:["Math","English","History","Art"], ans:1},
+  {q:"How did Maddie show kindness to Wanda?", opts:["Stood up for her","Ignored her","Teased her","Spoke to teacher"], ans:0},
+  {q:"What was Peggy’s reaction after Wanda left?", opts:["Regret","Happiness","Anger","Indifference"], ans:0},
+  {q:"What is Wanda’s special talent?", opts:["Drawing","Singing","Dancing","Writing"], ans:0},
+  {q:"What did Peggy and Maddie realize at the end?", opts:["They were cruel","They were happy","They ignored Wanda","They helped her"], ans:0},
+  {q:"Which quality is highlighted in Wanda’s character?", opts:["Patience","Revenge","Laziness","Greed"], ans:0},
+  {q:"The story mainly emphasizes?", opts:["Empathy and kindness","Adventure","Competition","War"], ans:0},
+  {q:"Who felt guilty for teasing Wanda?", opts:["Peggy","Maddie","Both","Teacher"], ans:2},
+  {q:"Wanda’s hundred dresses symbolize?", opts:["Hope and imagination","Wealth","Fame","Power"], ans:0}
+]
+
+];
+
+let currentTest=0;
+
+function loadTest(i){
+ currentTest=i;
+ result.textContent="";
+ mcqForm.innerHTML="";
+ qCircles.innerHTML="";
+
+ document.querySelectorAll(".test-buttons button").forEach((b,j)=>{
+  b.classList.toggle("active",i===j);
+ });
+
+ tests[i].forEach((item,index)=>{
+  qCircles.innerHTML+=`<div class="q-circle" id="c${index}">${index+1}</div>`;
+  mcqForm.innerHTML+=`
+   <div class="question" data-answer="${item.ans}">
+    <p>Q${index+1}. ${item.q}</p>
+    ${item.opts.map((o,j)=>`
+     <label>
+      <input type="radio" name="q${index}" value="${j}" onchange="markFilled(${index})">
+      ${o}
+     </label>`).join("")}
+    <div class="feedback"></div>
+   </div>`;
+ });
+}
+
+function markFilled(i){
+ document.getElementById("c"+i).classList.add("filled");
+}
+
+function submitTest(){
+ let score=0;
+ document.querySelectorAll(".question").forEach(q=>{
+  const sel=q.querySelector("input:checked");
+  const fb=q.querySelector(".feedback");
+  const ans=q.dataset.answer;
+  const correct=q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+  if(sel && sel.value===ans){
+   score++; fb.innerHTML="✔ Correct"; fb.className="feedback correct";
+  }else if(sel){
+   fb.innerHTML=`✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }else{
+   fb.innerHTML=`⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }
+ });
+ result.textContent=`Score: ${score} / ${tests[currentTest].length}`;
+}
+
+loadTest(0);
+</script>
+
+</body>
+</html

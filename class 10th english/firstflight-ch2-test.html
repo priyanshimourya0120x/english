@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 2 – First Flight MCQ Tests | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background: linear-gradient(rgba(22,46,6,0.85), rgba(22,46,6,0.85)), 
+  url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#2a5298;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px; padding:8px 14px; border:none;
+  border-radius:6px; cursor:pointer; background:#ddd;
+}
+.test-buttons button.active{background:#2a5298;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #2a5298;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%; padding:12px;
+  background:#2a5298; color:#fff;
+  border:none;border-radius:8px;
+  font-size:16px; cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 2 – Nelson Mandela (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+/* ===== TEST DATA ===== */
+const tests = [
+
+/* ================= TEST 1 ================= */
+[
+  {q:"Who wrote 'Long Walk to Freedom'?", opts:["Nelson Mandela","Gandhi","Jawaharlal Nehru","Tagore"], ans:0},
+  {q:"When did Mandela become President?", opts:["1990","1992","1994","1996"], ans:2},
+  {q:"Which country did Mandela belong to?", opts:["Kenya","Nigeria","South Africa","Zimbabwe"], ans:2},
+  {q:"What system was abolished?", opts:["Slavery","Apartheid","Colonialism","Dictatorship"], ans:1},
+  {q:"What does courage mean according to Mandela?", opts:["No fear","Facing fear","Running away","Strength"], ans:1},
+  {q:"Where was inauguration held?", opts:["Union Buildings","Parliament","Stadium","Court"], ans:0},
+  {q:"Who attended the ceremony?", opts:["Only blacks","Only whites","World leaders","Students"], ans:2},
+  {q:"Mandela spent years in?", opts:["House arrest","Exile","Prison","Hospital"], ans:2},
+  {q:"Freedom is?", opts:["Divisible","Selfish","Indivisible","Optional"], ans:2},
+  {q:"Chapter theme?", opts:["Revenge","Freedom","Power","War"], ans:1}
+],
+
+/* ================= TEST 2 ================= */
+[
+  {q:"Apartheid means?", opts:["Equality","Racial discrimination","Freedom","Unity"], ans:1},
+  {q:"Mandela took oath as?", opts:["Prime Minister","President","Judge","Minister"], ans:1},
+  {q:"Who were oppressed?", opts:["Blacks","Whites","Europeans","Asians"], ans:0},
+  {q:"Mandela believed freedom is?", opts:["For few","For all","For rich","For leaders"], ans:1},
+  {q:"What did Mandela fight against?", opts:["Poverty","Apartheid","Illiteracy","War"], ans:1},
+  {q:"Mandela said fear creates?", opts:["Hate","Courage","Confidence","Peace"], ans:1},
+  {q:"What did South Africa become?", opts:["Monarchy","Democracy","Dictatorship","Empire"], ans:1},
+  {q:"Mandela respected former enemies because?", opts:["Fear","Hatred","Forgiveness","Revenge"], ans:2},
+  {q:"Mandela believed hatred is?", opts:["Natural","Learned","Inherited","Permanent"], ans:1},
+  {q:"Real freedom means?", opts:["Power","Respect others","Money","Rule"], ans:1}
+],
+
+/* ================= TEST 3 ================= */
+[
+   {q:"What was the name of Mandela’s autobiography?", opts:["My Experiments with Truth","Long Walk to Freedom","Wings of Fire","Discovery of India"], ans:1},
+  {q:"Mandela described courage as triumph over?", opts:["Enemies","Fear","Weakness","Hatred"], ans:1},
+  {q:"What did apartheid deny the blacks?", opts:["Education","Human dignity","Employment","Health care"], ans:1},
+  {q:"What did Mandela say about man’s goodness?", opts:["It is destroyed","It is artificial","It is a flame","It is temporary"], ans:2},
+  {q:"Mandela believed that freedom must include?", opts:["Power","Responsibility","Authority","Money"], ans:1},
+  {q:"Who benefited the most from apartheid?", opts:["Blacks","Indians","Whites","Coloureds"], ans:2},
+  {q:"Mandela’s struggle was mainly for?", opts:["Political power","Personal freedom","Freedom of all","Economic growth"], ans:2},
+  {q:"What lesson does the chapter teach?", opts:["Violence wins","Revenge is necessary","Forgiveness brings peace","Power is everything"], ans:2},
+  {q:"Mandela’s speech was full of?", opts:["Anger","Hope","Fear","Sadness"], ans:1},
+  {q:"Which value is highlighted the most in the chapter?", opts:["Money","Equality","Authority","Control"], ans:1}
+]
+
+];
+
+let currentTest = 0;
+
+/* ===== LOAD TEST ===== */
+function loadTest(index){
+  currentTest = index;
+  result.textContent = "";
+  mcqForm.innerHTML = "";
+  qCircles.innerHTML = "";
+
+  document.querySelectorAll(".test-buttons button").forEach((b,i)=>{
+    b.classList.toggle("active", i === index);
+  });
+
+  tests[index].forEach((item,i)=>{
+    qCircles.innerHTML += `<div class="q-circle" id="c${i}">${i+1}</div>`;
+    mcqForm.innerHTML += `
+      <div class="question" data-answer="${item.ans}">
+        <p>Q${i+1}. ${item.q}</p>
+        ${item.opts.map((o,j)=>`
+          <label>
+            <input type="radio" name="q${i}" value="${j}" onchange="markFilled(${i})">
+            ${o}
+          </label>`).join("")}
+        <div class="feedback"></div>
+      </div>`;
+  });
+}
+
+/* ===== MARK ATTEMPT ===== */
+function markFilled(i){
+  document.getElementById("c"+i).classList.add("filled");
+}
+
+/* ===== SUBMIT ===== */
+function submitTest(){
+  let score = 0;
+  document.querySelectorAll(".question").forEach(q=>{
+    const sel = q.querySelector("input:checked");
+    const fb = q.querySelector(".feedback");
+    const ans = q.dataset.answer;
+    const correct = q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+    if(sel && sel.value === ans){
+      score++;
+      fb.innerHTML = "✔ Correct";
+      fb.className = "feedback correct";
+    } else if(sel){
+      fb.innerHTML = `✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`;
+      fb.className = "feedback wrong";
+    } else {
+      fb.innerHTML = `⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`;
+      fb.className = "feedback wrong";
+    }
+  });
+
+  result.textContent = `Score: ${score} / ${tests[currentTest].length}`;
+}
+
+/* INITIAL LOAD */
+loadTest(0);
+</script>
+
+</body>
+</html>

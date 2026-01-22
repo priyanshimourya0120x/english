@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 10 – The Sermon at Benares | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:linear-gradient(rgba(30,60,90,0.85),rgba(30,60,90,0.85)),
+  url("https://images.unsplash.com/photo-1581091012184-d6e83d0e8b5b");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#0d47a1;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px;padding:8px 14px;border:none;
+  border-radius:6px;cursor:pointer;background:#ddd;
+}
+.test-buttons button.active{background:#0d47a1;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #0d47a1;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%;padding:12px;background:#0d47a1;
+  color:#fff;border:none;border-radius:8px;
+  font-size:16px;cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 10 – The Sermon at Benares (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+const tests=[
+
+/* ================= TEST 1 ================= */
+[
+ {q:"Who is the author of 'A Truly Beautiful Mind'?",opts:["Sudha Murthy","Ruskin Bond","R.K. Narayan","Vikram Seth"],ans:0},
+ {q:"Who is the main character of the story?",opts:["Shakuntala","Kezia","Rajvir","Mirza"],ans:0},
+ {q:"Shakuntala is passionate about?",opts:["Mathematics","Sports","Music","Art"],ans:0},
+ {q:"She faces challenges due to?",opts:["Poverty and societal pressures","Illness","Travel","Laziness"],ans:0},
+ {q:"Her perseverance shows?",opts:["Determination and intelligence","Wealth","Fame","Adventure"],ans:0},
+ {q:"Shakuntala’s character is?",opts:["Kind and humble","Angry","Greedy","Lazy"],ans:0},
+ {q:"The author emphasizes?",opts:["Inner qualities matter more than wealth","Science","Politics","History"],ans:0},
+ {q:"Shakuntala overcomes difficulties by?",opts:["Hard work and intelligence","Luck","Friends","Adventure"],ans:0},
+ {q:"The central theme is?",opts:["Perseverance and humility","War","Adventure","Economy"],ans:0},
+ {q:"Story teaches us to?",opts:["Value effort and kindness","Wealth","Fame","Power"],ans:0}
+],
+
+/* ================= TEST 2 ================= */
+[
+ {q:"Shakuntala’s family is?",opts:["Poor","Rich","Middle-class","Royal"],ans:0},
+ {q:"She is called a truly beautiful mind because?",opts:["Of her intelligence and character","Of her looks","Of her wealth","Of her fame"],ans:0},
+ {q:"The story highlights?",opts:["Importance of education","Politics","Sports","Technology"],ans:0},
+ {q:"Shakuntala works hard despite?",opts:["Challenges and poverty","Wealth","Support","Luxury"],ans:0},
+ {q:"She remains?",opts:["Humble and kind","Arrogant","Lazy","Angry"],ans:0},
+ {q:"Author’s nationality?",opts:["Indian","New Zealander","British","American"],ans:0},
+ {q:"Main lesson of the story?",opts:["Inner beauty matters more than wealth","Adventure","Power","History"],ans:0},
+ {q:"Shakuntala succeeds through?",opts:["Perseverance","Luck","Magic","Travel"],ans:0},
+ {q:"What quality is highlighted?",opts:["Determination","Anger","Jealousy","Fame"],ans:0},
+ {q:"The story inspires readers to?",opts:["Work hard and stay humble","Become rich","Travel","Fight"],ans:0}
+],
+
+/* ================= TEST 3 ================= */
+[
+ {q:"Who wrote 'A Truly Beautiful Mind'?",opts:["Sudha Murthy","Ruskin Bond","R.K. Narayan","Vikram Seth"],ans:0},
+ {q:"Shakuntala loves?",opts:["Mathematics","Dancing","Singing","Sports"],ans:0},
+ {q:"She faces?",opts:["Societal pressure and poverty","Health issues","Travel problems","War"],ans:0},
+ {q:"Shakuntala’s character shows?",opts:["Humility and intelligence","Anger and hate","Greed","Fame"],ans:0},
+ {q:"The story is set in?",opts:["Shakuntala’s home","School","Market","Park"],ans:0},
+ {q:"The moral of the story?",opts:["Hard work and kindness are important","Adventure","Money is everything","Power"],ans:0},
+ {q:"Author emphasizes?",opts:["Inner qualities over wealth","Politics","Science","History"],ans:0},
+ {q:"Shakuntala’s struggle highlights?",opts:["Value of perseverance","Greed","Fame","Travel"],ans:0},
+ {q:"Story teaches us?",opts:["Importance of effort and humility","War","Adventure","Technology"],ans:0},
+ {q:"Overall lesson?",opts:["Good character matters most","Wealth","Power","Fame"],ans:0}
+]
+
+];
+
+let currentTest=0;
+
+function loadTest(i){
+ currentTest=i;
+ result.textContent="";
+ mcqForm.innerHTML="";
+ qCircles.innerHTML="";
+
+ document.querySelectorAll(".test-buttons button").forEach((b,j)=>{
+  b.classList.toggle("active",i===j);
+ });
+
+ tests[i].forEach((item,index)=>{
+  qCircles.innerHTML+=`<div class="q-circle" id="c${index}">${index+1}</div>`;
+  mcqForm.innerHTML+=`
+   <div class="question" data-answer="${item.ans}">
+    <p>Q${index+1}. ${item.q}</p>
+    ${item.opts.map((o,j)=>`
+     <label>
+      <input type="radio" name="q${index}" value="${j}" onchange="markFilled(${index})">
+      ${o}
+     </label>`).join("")}
+    <div class="feedback"></div>
+   </div>`;  
+ });
+}
+
+function markFilled(i){
+ document.getElementById("c"+i).classList.add("filled");
+}
+
+function submitTest(){
+ let score=0;
+ document.querySelectorAll(".question").forEach(q=>{
+  const sel=q.querySelector("input:checked");
+  const fb=q.querySelector(".feedback");
+  const ans=q.dataset.answer;
+  const correct=q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+  if(sel && sel.value===ans){
+   score++; fb.innerHTML="✔ Correct"; fb.className="feedback correct";
+  }else if(sel){
+   fb.innerHTML=`✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }else{
+   fb.innerHTML=`⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }
+ });
+ result.textContent=`Score: ${score} / ${tests[currentTest].length}`;
+}
+
+loadTest(0);
+</script>
+
+</body>
+</html>

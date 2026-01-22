@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 4 – From the Diary of Anne Frank | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:linear-gradient(rgba(10,40,80,0.85),rgba(10,40,80,0.85)),
+  url("https://images.unsplash.com/photo-1519681393784-d120267933ba");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#1b4f72;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px;padding:8px 14px;border:none;
+  border-radius:6px;cursor:pointer;background:#ddd;
+}
+.test-buttons button.active{background:#1b4f72;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #1b4f72;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#2ecc71;color:#fff;border-color:#2ecc71;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%;padding:12px;background:#1b4f72;
+  color:#fff;border:none;border-radius:8px;
+  font-size:16px;cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 4 – From the Diary of Anne Frank (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+const tests = [
+
+/* ================= TEST 1 – His First Flight ================= */
+[
+  {q:"Who wrote 'His First Flight'?", opts:["Liam O’Flaherty","Ruskin Bond","R.K. Narayan","Mark Twain"], ans:0},
+  {q:"Why was the young seagull afraid to fly?", opts:["Fear of falling","Weak wings","Storm","Parents"], ans:0},
+  {q:"Who encouraged the young seagull to take his first flight?", opts:["Mother","Father","Brother","Teacher"], ans:0},
+  {q:"What motivated the seagull to finally attempt flying?", opts:["Hunger","Curiosity","Play","Fear"], ans:0},
+  {q:"Where did the seagull take his first flight from?", opts:["Cliff","Tree","Nest","Roof"], ans:0},
+  {q:"What lesson did the young seagull learn?", opts:["Courage and confidence","Patience","Laziness","Revenge"], ans:0},
+  {q:"How did the parents react after the seagull learned to fly?", opts:["Proud","Angry","Ignored","Sad"], ans:0},
+  {q:"Theme of 'His First Flight'?", opts:["Overcoming fear","War","Adventure","Greed"], ans:0},
+  {q:"What did the seagull discover about his wings?", opts:["They could support him","They were weak","They were broken","They were small"], ans:0},
+  {q:"Which quality helped the seagull succeed?", opts:["Self-belief","Revenge","Curiosity","Anger"], ans:0}
+],
+
+
+/* ================= TEST 2 – The Black Aeroplane ================= */
+[
+  {q:"Who is the narrator of 'The Black Aeroplane'?", opts:["Pilot","Passenger","Teacher","Writer"], ans:0},
+  {q:"Where was the pilot flying to?", opts:["London","Paris","New York","Rome"], ans:0},
+  {q:"What weather challenge did the pilot face?", opts:["Storm","Rain","Fog","Snow"], ans:0},
+  {q:"What appeared mysteriously to help the pilot?", opts:["Black Aeroplane","Bird","Cloud","Tower"], ans:0},
+  {q:"Who guided the pilot to safety?", opts:["Unknown pilot","Air Traffic Control","Friend","Passenger"], ans:0},
+  {q:"What was mysterious about the black aeroplane?", opts:["Pilot never seen","Engine stopped","Plane crashed","No one noticed"], ans:0},
+  {q:"How did the pilot feel during the storm?", opts:["Fearful but calm","Relaxed","Happy","Bored"], ans:0},
+  {q:"Which quality does the pilot show in the story?", opts:["Courage","Greed","Revenge","Anger"], ans:0},
+  {q:"What does the black aeroplane symbolize?", opts:["Hope and guidance","Fear","Death","Luck"], ans:0},
+  {q:"Theme of 'The Black Aeroplane'?", opts:["Courage and faith","Adventure","War","Greed"], ans:0}
+],
+
+
+/* ================= TEST 3 – Mixed Questions ================= */
+[
+  {q:"What is the common theme of both stories?", opts:["Courage and perseverance","Adventure","War","Science"], ans:0},
+  {q:"Which story teaches self-belief?", opts:["His First Flight","The Black Aeroplane","Both","None"], ans:0},
+  {q:"Which story involves a life-threatening situation?", opts:["The Black Aeroplane","His First Flight","Both","None"], ans:0},
+  {q:"Who motivates the young seagull?", opts:["Mother","Father","Both parents","Teacher"], ans:2},
+  {q:"How does the pilot survive the storm?", opts:["By following an unknown plane","By crashing","By returning home","By asking passengers"], ans:0},
+  {q:"Which character learns from experience?", opts:["Seagull","Pilot","Both","None"], ans:2},
+  {q:"What is the key message in 'His First Flight'?", opts:["Face fears to grow","Fear is good","Avoid risks","Revenge is important"], ans:0},
+  {q:"Why is the black aeroplane considered mysterious?", opts:["Pilot unseen","Plane vanished","Storm disappeared","Radio failed"], ans:0},
+  {q:"What quality helped both characters?", opts:["Courage","Greed","Anger","Curiosity"], ans:0},
+  {q:"How do both stories inspire readers?", opts:["By showing courage and self-confidence","By showing fear","By showing laziness","By showing revenge"], ans:0}
+]
+
+];
+
+let currentTest=0;
+
+function loadTest(i){
+ currentTest=i;
+ result.textContent="";
+ mcqForm.innerHTML="";
+ qCircles.innerHTML="";
+
+ document.querySelectorAll(".test-buttons button").forEach((b,j)=>{
+  b.classList.toggle("active",i===j);
+ });
+
+ tests[i].forEach((item,index)=>{
+  qCircles.innerHTML+=`<div class="q-circle" id="c${index}">${index+1}</div>`;
+  mcqForm.innerHTML+=`
+   <div class="question" data-answer="${item.ans}">
+    <p>Q${index+1}. ${item.q}</p>
+    ${item.opts.map((o,j)=>`
+     <label>
+      <input type="radio" name="q${index}" value="${j}" onchange="markFilled(${index})">
+      ${o}
+     </label>`).join("")}
+    <div class="feedback"></div>
+   </div>`;
+ });
+}
+
+function markFilled(i){
+ document.getElementById("c"+i).classList.add("filled");
+}
+
+function submitTest(){
+ let score=0;
+ document.querySelectorAll(".question").forEach(q=>{
+  const sel=q.querySelector("input:checked");
+  const fb=q.querySelector(".feedback");
+  const ans=q.dataset.answer;
+  const correct=q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+  if(sel && sel.value===ans){
+   score++; fb.innerHTML="✔ Correct"; fb.className="feedback correct";
+  }else if(sel){
+   fb.innerHTML=`✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }else{
+   fb.innerHTML=`⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }
+ });
+ result.textContent=`Score: ${score} / ${tests[currentTest].length}`;
+}
+
+loadTest(0);
+</script>
+
+</body>
+</html>

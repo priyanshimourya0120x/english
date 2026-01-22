@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter 3 – Two Stories about Flying | Class 10</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+  background:linear-gradient(rgba(22,46,6,0.85),rgba(22,46,6,0.85)),
+  url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+  background-size:cover;
+  min-height:70vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  margin:50px;
+}
+.container{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+h2{text-align:center;color:#2a5298;margin-bottom:15px;}
+.test-buttons{text-align:center;margin-bottom:15px;}
+.test-buttons button{
+  margin:5px;padding:8px 14px;border:none;
+  border-radius:6px;cursor:pointer;background:#ddd;
+}
+.test-buttons button.active{background:#2a5298;color:#fff;}
+.q-circles{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:10px;margin-bottom:20px;
+}
+.q-circle{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid #2a5298;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;background:#f2f2f2;
+}
+.q-circle.filled{background:#4caf50;color:#fff;border-color:#4caf50;}
+.question{
+  border:1px solid #ddd;padding:15px;
+  border-radius:8px;margin-bottom:18px;
+}
+.question p{font-weight:bold;margin-bottom:10px;}
+label{display:block;margin-bottom:8px;cursor:pointer;}
+.submit-btn{
+  width:100%;padding:12px;background:#2a5298;
+  color:#fff;border:none;border-radius:8px;
+  font-size:16px;cursor:pointer;
+}
+.feedback{margin-top:8px;font-weight:bold;}
+.correct{color:green;} .wrong{color:red;}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Chapter 3 – Two Stories about Flying (MCQ Tests)</h2>
+
+<div class="test-buttons">
+  <button onclick="loadTest(0)" class="active">Test 1</button>
+  <button onclick="loadTest(1)">Test 2</button>
+  <button onclick="loadTest(2)">Test 3</button>
+</div>
+
+<div class="q-circles" id="qCircles"></div>
+<form id="mcqForm"></form>
+
+<button class="submit-btn" onclick="submitTest()">Submit Test</button>
+<div id="result"></div>
+</div>
+
+<script>
+const tests=[
+
+/* ================= TEST 1 – His First Flight ================= */
+[
+  {q:"What is the main fear of the young seagull?", opts:["Falling","Hunger","Storms","Parents"], ans:0},
+  {q:"Who encourages the young seagull to fly?", opts:["Father","Mother","Brother","Sister"], ans:1},
+  {q:"Why does the seagull hesitate to fly initially?", opts:["Weak wings","Fear of heights","No food","Stormy weather"], ans:1},
+  {q:"What motivates the seagull to jump finally?", opts:["Hunger","Peer pressure","Curiosity","Rain"], ans:0},
+  {q:"Where does the seagull first take his flight?", opts:["Cliff","Tree","Roof","Nest"], ans:0},
+  {q:"What lesson does the seagull learn from flying?", opts:["Courage","Obedience","Greed","Patience"], ans:0},
+  {q:"How does the mother demonstrate care?", opts:["Bringing food","Talking","Flying with him","Scolding"], ans:0},
+  {q:"What does the first flight symbolize?", opts:["Growth","Fear","Failure","Danger"], ans:0},
+  {q:"Which emotion dominates the seagull at the start?", opts:["Fear","Excitement","Anger","Hunger"], ans:0},
+  {q:"What is the theme of ‘His First Flight’?", opts:["Courage and confidence","Adventure","Revenge","Travel"], ans:0}
+],
+
+/* ================= TEST 2 – The Black Aeroplane ================= */
+[
+  {q:"Who is the protagonist of the story?", opts:["Pilot","Passenger","Mechanic","Writer"], ans:0},
+  {q:"What problem does the pilot face mid-flight?", opts:["Storm","Engine failure","Fog","Bird strike"], ans:0},
+  {q:"Which mysterious object helps the pilot?", opts:["Black aeroplane","Bird","Satellite","Helicopter"], ans:0},
+  {q:"How does the pilot feel when lost in the storm?", opts:["Afraid","Happy","Excited","Relaxed"], ans:0},
+  {q:"What role does the unknown pilot play?", opts:["Guide","Enemy","Observer","Passenger"], ans:0},
+  {q:"Where does the pilot finally land safely?", opts:["Airport","Sea","Mountain","Desert"], ans:0},
+  {q:"What stops working during the flight?", opts:["Radio","Compass","Engine","Radar"], ans:0},
+  {q:"What theme does the black aeroplane highlight?", opts:["Hope","Fear","Greed","Adventure"], ans:0},
+  {q:"How is the story mysterious?", opts:["Pilot not seen","Plane disappears","Engine fails","Weather changes"], ans:0},
+  {q:"What quality does the pilot show during crisis?", opts:["Courage","Greed","Anger","Fear"], ans:0}
+],
+
+/* ================= TEST 3 – Combined / Misc ================= */
+[
+  {q:"What do both stories teach about facing fear?", opts:["Overcome it with courage","Run away","Ignore it","Blame others"], ans:0},
+  {q:"Which natural element challenges the characters?", opts:["Storm","Fire","Earthquake","Flood"], ans:0},
+  {q:"Which character shows perseverance?", opts:["Seagull","Pilot","Both","None"], ans:2},
+  {q:"What is common between both protagonists?", opts:["Courage","Wealth","Anger","Laziness"], ans:0},
+  {q:"Which story involves a coming-of-age experience?", opts:["His First Flight","The Black Aeroplane","Both","None"], ans:0},
+  {q:"Who plays a guiding role in each story?", opts:["Mother/Unknown pilot","Father/Radio","Teacher/ATC","Friend/Passenger"], ans:0},
+  {q:"What does the black aeroplane symbolize?", opts:["Hope","Fear","Death","Failure"], ans:0},
+  {q:"Which quality is emphasized in both stories?", opts:["Confidence","Wealth","Fame","Power"], ans:0},
+  {q:"Why is fear an important theme?", opts:["Shows growth through courage","To scare","To punish","To escape"], ans:0},
+  {q:"What motivates the pilot to keep flying?", opts:["Faith and hope","Curiosity","Boredom","Adventure"], ans:0},
+]
+
+];
+
+let currentTest=0;
+
+function loadTest(i){
+ currentTest=i;
+ result.textContent="";
+ mcqForm.innerHTML="";
+ qCircles.innerHTML="";
+
+ document.querySelectorAll(".test-buttons button").forEach((b,j)=>{
+  b.classList.toggle("active",i===j);
+ });
+
+ tests[i].forEach((item,index)=>{
+  qCircles.innerHTML+=`<div class="q-circle" id="c${index}">${index+1}</div>`;
+  mcqForm.innerHTML+=`
+   <div class="question" data-answer="${item.ans}">
+    <p>Q${index+1}. ${item.q}</p>
+    ${item.opts.map((o,j)=>`
+     <label>
+      <input type="radio" name="q${index}" value="${j}" onchange="markFilled(${index})">
+      ${o}
+     </label>`).join("")}
+    <div class="feedback"></div>
+   </div>`;
+ });
+}
+
+function markFilled(i){
+ document.getElementById("c"+i).classList.add("filled");
+}
+
+function submitTest(){
+ let score=0;
+ document.querySelectorAll(".question").forEach(q=>{
+  const sel=q.querySelector("input:checked");
+  const fb=q.querySelector(".feedback");
+  const ans=q.dataset.answer;
+  const correct=q.querySelector(`input[value="${ans}"]`).parentElement.textContent.trim();
+
+  if(sel && sel.value===ans){
+   score++; fb.innerHTML="✔ Correct"; fb.className="feedback correct";
+  }else if(sel){
+   fb.innerHTML=`✖ Wrong<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }else{
+   fb.innerHTML=`⚠ Not Attempted<br>✔ Correct Answer: <b>${correct}</b>`; fb.className="feedback wrong";
+  }
+ });
+ result.textContent=`Score: ${score} / ${tests[currentTest].length}`;
+}
+
+loadTest(0);
+</script>
+
+</body>
+</html>
